@@ -18,10 +18,21 @@ const allowedOrigins = [
   "http://127.0.0.1:5173",
 ].filter(Boolean);
 
+const isAllowedOrigin = (origin) =>
+  !origin ||
+  allowedOrigins.includes(origin) ||
+  /^https:\/\/full-stack-job-portal-[a-z0-9]+\.vercel\.app$/.test(origin);
+
 app.use(
   cors({
-    origin: allowedOrigins,
-    method: ["GET", "POST", "DELETE", "PUT"],
+    origin: (origin, callback) => {
+      if (isAllowedOrigin(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Origin is not allowed by CORS"));
+      }
+    },
+    methods: ["GET", "POST", "DELETE", "PUT", "OPTIONS"],
     credentials: true,
   })
 );
