@@ -1,5 +1,6 @@
 import React, { useContext, useState } from "react";
 import { Context } from "../../main";
+import { API_URL } from "../../api";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import toast from "react-hot-toast";
@@ -14,7 +15,7 @@ const Navbar = () => {
   const handleLogout = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:4000/api/v1/user/logout",
+        `${API_URL}/user/logout`,
         {
           withCredentials: true,
         }

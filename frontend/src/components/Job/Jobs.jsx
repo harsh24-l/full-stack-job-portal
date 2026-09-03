@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { Link, Navigate } from "react-router-dom";
 import { Context } from "../../main";
+import { API_URL } from "../../api";
 
 const Jobs = () => {
   const [jobs, setJobs] = useState([]);
@@ -9,7 +10,7 @@ const Jobs = () => {
   useEffect(() => {
     try {
       axios
-        .get("http://localhost:4000/api/v1/job/getall", {
+        .get(`${API_URL}/job/getall`, {
           withCredentials: true,
         })
         .then((res) => {
